@@ -91,11 +91,11 @@ def fetchTweets(num):
 
     count = 1
     if tweets :
-        for tweet in text_only :
+        for tweet in tweets :
             if count == 1:
-                response = 'Tweet number ' + str(count) + ' : ' + tweet[0]
+                response = 'Tweet number ' + str(count) + ' : ' + tweet.text + '\n' + 'You can see this tweet at: ' + tweet.permalink + '\n' + 'Date and time of the above tweet: ' + str(tweet.date) + '\n'
             else :
-                response = response + '\n' + 'Tweet number ' + str(count) + ' : ' + tweet[0]
+                response = response + '\n' + 'Tweet number ' + str(count) + ' : ' + tweet.text + '\n' + 'You can see this tweet at: ' + tweet.permalink + '\n' + 'Date and time of the above tweet: ' + str(tweet.date) + '\n'
             count = count + 1
 
     slack_client.api_call(

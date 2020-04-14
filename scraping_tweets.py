@@ -1,7 +1,7 @@
 import GetOldTweets3 as got
 
 username = 'elonmusk'
-count = 5
+count = 1
 # Creation of query object
 tweetCriteria = got.manager.TweetCriteria().setUsername(username)\
                                         .setMaxTweets(count)
@@ -13,11 +13,12 @@ text_only = [[tweet.text] for tweet in tweets]
 
 count = 1
 if tweets :
-    for tweet in text_only :
+    for tweet in tweets :
         if count == 1:
-            response = 'Tweet number ' + str(count) + ' : ' + tweet[0]
+            response = 'Tweet number ' + str(count) + ' : ' + tweet.text
         else :
-            response = response + '\n' + 'Tweet number ' + str(count) + ' : ' + tweet[0]
+            response = response + '\n' + 'Tweet number ' + str(count) + ' : ' + tweet.text
         count = count + 1
 
-print(response)
+for tweet in tweets:
+    print(tweet.text)
