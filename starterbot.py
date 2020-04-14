@@ -12,7 +12,7 @@ starterbot_id = None
 # constants
 RTM_READ_DELAY = 1 # 1 second delay between reading from RTM
 EXAMPLE_COMMAND = "what can you do?"
-com1 = "tweets "
+com1 = "tweets"
 greetings = ['hi', 'hello', 'hello there', 'hey']
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
@@ -55,7 +55,11 @@ def handle_command(command, channel):
         response = "Well I was designed to scrape tweets by Elon Musk for you. For example tell me the number of tweets that you'd like to see.\n You can do that by sending the command as 'tweets = <number of tweets that you wish to see>'."
     elif command.startswith(com1):
         arr = command.split()
-        return fetchTweets(int(arr[2]))
+        if len(arr) == 1:
+            arr = command.split('=')
+            return fetchTweets(int(arr[1]))
+        else:
+            return fetchTweets(int(arr[2]))
     else:
         for greeting in greetings:
             if greeting == command:
