@@ -54,9 +54,8 @@ def handle_command(command, channel):
     if command.startswith(EXAMPLE_COMMAND):
         response = "Well I was designed to scrape tweets by Elon Musk for you. For example tell me the number of tweets that you'd like to see.\n You can do that by sending the command as 'tweets = <number of tweets that you wish to see>'."
     elif command.startswith(com1):
-        response = "Fetching tweets..."
         arr = command.split()
-        fetchTweets(int(arr[2]))
+        return fetchTweets(int(arr[2]))
     else:
         for greeting in greetings:
             if greeting == command:
@@ -70,6 +69,12 @@ def handle_command(command, channel):
     )
 
 def fetchTweets(num):
+    slack_client.api_call(
+        "chat.postMessage",
+        channel=channel,
+        text='Fetching tweets....'
+    )
+
     username = 'elonmusk'
     count = num
     # Creation of query object
