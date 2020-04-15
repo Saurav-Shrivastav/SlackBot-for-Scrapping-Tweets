@@ -5,8 +5,6 @@ import time
 import re
 from slackclient import SlackClient
 
-print(os.environ.get('SLACK_BOT_TOKEN'))
-
 # instantiate Slack client
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 # starterbot's user ID in Slack: value is assigned after the bot starts up
@@ -78,18 +76,20 @@ def fetchTweets(num):
 
     count=1
     for tweet in soup.findAll('li', class_ = 'js-stream-item stream-item stream-item'):
-        tweet_text = tweet.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text')
         if count > num:
             break
         else:
+            tweet_text = tweet.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text')
+            tweet_text = tweet_text.text
+            tweet_link_small = tweet.find('a', class_='tweet-timestamp js-permalink js-nav js-tooltip')['href']
+            tweet_link = f'https://twitter.com/{tweet_link_small}'
+            tweet_date = tweet.find('a', class_='tweet-timestamp js-permalink js-nav js-tooltip')['title']
             slack_client.api_call(
                 "chat.postMessage",
                 channel=channel,
-                text=tweet_text.text
+                text=f'Tweet number {str(count)}: {tweet_text} \nYou can see this tweet at: {tweet_link} \nDate and time of the above tweet: {tweet_date}\n'
             )
         count = count + 1
-
-    print('\n I did it yayyyyy')
 
 if __name__ == "__main__":
     if slack_client.rtm_connect(with_team_state=False):
