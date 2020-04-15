@@ -8,6 +8,9 @@ The version-1 of the bot used the GetOldTweets3 library to fetch tweets directly
 ## Version - 2
 In the version-2, I've implemented the web scraping by using the BeautifulSoup4 and requests libs.
 
+## Version - 3
+The bot now serves a CSV file along with the tweets with all the data.
+
 ## Screenshot
 
 ![Screenshot](img/2020-04-15.png)
